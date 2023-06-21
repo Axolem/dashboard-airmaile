@@ -4,6 +4,7 @@ import DataField from "../../components/DataField";
 import DashContentWrapper from "../../components/DashContentWrapper";
 
 import { Chart } from "primereact/chart";
+import { ProgressBar } from "primereact/progressbar";
 
 const Home = () => {
   return (
@@ -55,25 +56,111 @@ const Home = () => {
                 <h3 className="mt-0">API Calls in last 6 hours</h3>
                 <i className="pi pi-refresh" />
               </div>
-              <div>
+              <div style={{ minHeight: "250px" }}>
                 <Chart type="line" data={data} options={options} />
               </div>
             </div>
 
             <div className="flex flex-row justify-content-center align-items-center w-full my-3">
               {/* Total usage */}
-              <div className="my-shadow mr-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
+              <div className="my-shadow mr-3 flex flex-column bg-white py-3 px-4 w-full border-round h-23rem">
+                <div className="flex flex-row justify-content-between ">
+                  <h3 className="mt-0">All time usage</h3>
+                  <i className="pi pi-refresh" />
+                </div>
+                <div>
+                  <Chart
+                    type="doughnut"
+                    data={donutData}
+                    options={donutOptions}
+                  />
+                </div>
+              </div>
 
-              {/* Current plan */}
-              <div className="my-shadow ml-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
+              {/* Avarages */}
+              <div className="my-shadow ml-3 flex flex-column bg-white py-3 px-4 w-full border-round h-23rem">
+                <div className="flex flex-row justify-content-between ">
+                  <h3 className="mt-0">Daily Avarages</h3>
+                  <i className="pi pi-refresh" />
+                </div>
+                <div className="">
+                  <div>
+                    <p className="mt-0">API calls:</p>
+                    <ProgressBar
+                      value={50}
+                      pt={{
+                        value: {
+                          style: {
+                            background:
+                              "linear-gradient(to right, #8e2de2, #4a00e0)",
+                          },
+                        },
+                      }}
+                      className="border-round"
+                      style={{ height: "20px" }}
+                    />
+                  </div>
+                  <div>
+                    <p>Email Validations:</p>
+                    <ProgressBar
+                      value={90}
+                      pt={{
+                        value: {
+                          style: {
+                            background:
+                              "linear-gradient(to right, #8e2de2, #4a00e0)",
+                          },
+                        },
+                      }}
+                      style={{ height: "20px" }}
+                      className="border-round"
+                    />
+                  </div>
+                  <div>
+                    <p className="mb-0">Most used template:</p>
+                    <p className="text-sm mt-0">User welcome</p>
+                    <ProgressBar
+                      value={70}
+                      pt={{
+                        value: {
+                          style: {
+                            background:
+                              "linear-gradient(to right, #8e2de2, #4a00e0)",
+                          },
+                        },
+                      }}
+                      className="border-round"
+                      style={{ height: "20px" }}
+                    />
+                  </div>
+                  <div>
+                    <p>Other</p>
+                    <ProgressBar
+                      mode="indeterminate"
+                      className="border-round"
+                      style={{ height: "10px" }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Activity */}
-          <div className="my-shadow w-4 bg-white ml-3 border-round py-3 px-4">
-            <div className="flex flex-row justify-content-between ">
-              <h3 className="mt-0">Activity</h3>
-              <i className="pi pi-refresh" />
+          <div className="ml-3 w-4 ">
+            <div className="my-shadow bg-white border-round py-3 px-4 mb-5">
+              <div className="flex flex-row justify-content-between ">
+                <h3 className="mt-0">Activity</h3>
+                <i className="pi pi-refresh" />
+              </div>
+              <ActivityCard/>
+            </div>
+
+            <div className="my-shadow bg-white border-round py-3 px-4 mt-5">
+              <div className="flex flex-row justify-content-between ">
+                <h3 className="mt-0">Activity</h3>
+                <i className="pi pi-refresh" />
+              </div>
             </div>
           </div>
         </div>
@@ -83,6 +170,31 @@ const Home = () => {
 };
 
 export default Home;
+
+const ActivityCard = () => {
+  return (
+    <div className="flex flex-row justify-content-between align-items-center">
+      <div className="flex flex-row align-items-center">
+        <div className="bg-blue-500 rounded-full h-8 w-8 flex flex-row justify-content-center align-items-center">
+          <i className="pi pi-user text-white" />
+        </div>
+        <div className="ml-3">
+          <p className="mb-0">User created</p>
+          <p className="text-sm mt-0">2 hours ago</p>
+        </div>
+      </div>
+      <div className="flex flex-row align-items-center">
+        <div className="bg-blue-500 rounded-full h-8 w-8 flex flex-row justify-content-center align-items-center">
+          <i className="pi pi-user text-white" />
+        </div>
+        <div className="ml-3">
+          <p className="mb-0">User created</p>
+          <p className="text-sm mt-0">2 hours ago</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // dummy data for chart component from PrimeReact
 const data = {
@@ -94,7 +206,7 @@ const data = {
       fill: false,
       backgroundColor: "#E8E0FF",
       borderColor: "#551FFF",
-      tension: 0.4
+      tension: 0.4,
     },
     {
       label: "Verified emails",
@@ -102,7 +214,7 @@ const data = {
       fill: false,
       backgroundColor: "#EAF9FF",
       borderColor: "#00B7FE",
-      tension: 0.4
+      tension: 0.4,
     },
   ],
 };
@@ -118,4 +230,31 @@ const options = {
       },
     ],
   },
+  maintainAspectRatio: true,
+  responsive: true,
+};
+
+// Donut chart data
+const donutData = {
+  labels: ["Sent", "Verified", "Failed"],
+  datasets: [
+    {
+      data: [300, 50, 100],
+      backgroundColor: ["#F5315D", "#00B7FE", "#FF6A00"],
+      hoverBackgroundColor: ["#FFEBEF", "#EAF9FF", "#FFF3E0"],
+    },
+  ],
+};
+
+// Doughnut chart options
+const donutOptions = {
+  plugins: {
+    legend: {
+      display: true,
+      position: "top",
+    },
+  },
+  maintainAspectRatio: true,
+  responsive: true,
+  cutout: "50%",
 };
