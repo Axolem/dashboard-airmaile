@@ -10009,3 +10009,19 @@
     background: #d9d8d9;
     border-color: #d9d8d9
 }
+
+
+/* For webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 6px;  /* Adjust the width as desired */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;  /* Adjust the background color as desired */
+  border-radius: 8px;  /* Adjust the border radius as desired */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;  /* Adjust the thumb color as desired */
+  border-radius: 8px;  /* Adjust the border radius as desired */
+}
