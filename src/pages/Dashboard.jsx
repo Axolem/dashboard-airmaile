@@ -23,7 +23,11 @@ const Dashboard = (props) => {
         }}
         style={{ borderRadius: "30px" }}
       >
-        <IconText icon={icon} text={link} isActive={activeTab.toLowerCase() === link.toLowerCase()} />
+        <IconText
+          icon={icon}
+          text={link}
+          isActive={activeTab.toLowerCase() === link.toLowerCase()}
+        />
       </Link>
     );
   };
@@ -135,18 +139,18 @@ const Dashboard = (props) => {
 
   return (
     <div className="flex flex-row">
-      <div className="flex flex-column w-3 flex-wrap border-right-1 border-200 h-screen">
+      <div className="flex flex-column w-2 flex-wrap border-right-1 border-200 h-screen fixed">
         <div className="text-center justify-content-center align-items-center flex">
           <Image
             src="https://cdn-newg.sirv.com/airmailer/dash/logo.png"
             alt="babylon-layout"
-            width="60"
-            className="pt-3"
+            width="80"
+            className="pt-4"
           />
         </div>
-        <Menu model={items} className="w-full mt-3 px-4 border-none" />
+        <Menu model={items} className="w-full mt-1 px-4 border-none" />
       </div>
-      <div className="flex flex-column w-full min-h-screen">
+      <div className="flex flex-column w-full min-h-screen w-10 absolute right-0">
         {props.children}
       </div>
     </div>
