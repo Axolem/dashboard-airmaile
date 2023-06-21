@@ -10013,15 +10013,32 @@
 
 /* For webkit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 6px;  /* Adjust the width as desired */
+    width: 6px;
+    /* Adjust the width as desired */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;  /* Adjust the background color as desired */
-  border-radius: 8px;  /* Adjust the border radius as desired */
+    background-color: #f1f1f1;
+    /* Adjust the background color as desired */
+    border-radius: 8px;
+    /* Adjust the border radius as desired */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;  /* Adjust the thumb color as desired */
-  border-radius: 8px;  /* Adjust the border radius as desired */
+    background-color: #888;
+    /* Adjust the thumb color as desired */
+    border-radius: 8px;
+    /* Adjust the border radius as desired */
+}
+
+.my-shadow{
+    /*Transition speed and type*/
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+
+.my-shadow:hover {
+    box-shadow: -1px 0px 38px 0px var(--gray-300);
+    -webkit-box-shadow: -1px 0px 38px 0px var(--gray-300);
+    -moz-box-shadow: -1px 0px 38px 0px var(--gray-300);
 }

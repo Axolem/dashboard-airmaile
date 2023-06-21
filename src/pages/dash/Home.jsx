@@ -15,7 +15,7 @@ const Home = () => {
         <div className="flex flex-row justify-content-between">
           <div className="flex flex-column align-items-center w-8 mr-3">
             {/* Apps count */}
-            <div className="flex flex-row justify-content-between align-items-center bg-white w-full h-5rem py-3 px-4 border-round mb-3">
+            <div className="my-shadow flex flex-row justify-content-between align-items-center bg-white w-full h-5rem py-3 px-4 border-round mb-3">
               <DataField
                 color={"#FF6A00"}
                 bg={"#FFF3E0"}
@@ -50,7 +50,7 @@ const Home = () => {
             </div>
 
             {/* API calls */}
-            <div className="bg-white w-full py-3 px-4 my-3 border-round">
+            <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
               <div className="flex flex-row justify-content-between">
                 <h3 className="mt-0">API Calls in last 6 hours</h3>
                 <i className="pi pi-refresh" />
@@ -62,15 +62,15 @@ const Home = () => {
 
             <div className="flex flex-row justify-content-center align-items-center w-full my-3">
               {/* Total usage */}
-              <div className="mr-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
+              <div className="my-shadow mr-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
 
               {/* Current plan */}
-              <div className="ml-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
+              <div className="my-shadow ml-3 flex flex-column justify-content-center align-items-center bg-white py-3 px-4 w-full border-round"></div>
             </div>
           </div>
 
           {/* Activity */}
-          <div className="w-4 bg-white ml-3 border-round py-3 px-4">
+          <div className="my-shadow w-4 bg-white ml-3 border-round py-3 px-4">
             <div className="flex flex-row justify-content-between ">
               <h3 className="mt-0">Activity</h3>
               <i className="pi pi-refresh" />
