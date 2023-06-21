@@ -8,7 +8,7 @@ import IconText from "../components/IconText";
 
 const Dashboard = (props) => {
   const [activeTab, setActiveTab] = useState(
-    window.location.pathname.split("/")[1]
+    window.location.pathname.split("/")[1] || "home"
   );
 
   const LinkItem = ({ link, icon }) => {
@@ -16,14 +16,14 @@ const Dashboard = (props) => {
       <Link
         to={`/${link.toLowerCase()}`}
         className={`p-menuitem-link my-3 ${
-          activeTab === link ? "bg-primary-50" : ""
+          activeTab.toLowerCase() === link.toLowerCase() ? "bg-primary-50" : ""
         }`}
         onClick={() => {
-          setActiveTab(link);
+          setActiveTab(link.toLowerCase());
         }}
         style={{ borderRadius: "30px" }}
       >
-        <IconText icon={icon} text={link} isActive={activeTab === link} />
+        <IconText icon={icon} text={link} isActive={activeTab.toLowerCase() === link.toLowerCase()} />
       </Link>
     );
   };
@@ -42,7 +42,7 @@ const Dashboard = (props) => {
           >
             <IconText
               icon={item.icon}
-              text={item.label.toLowerCase()}
+              text={item.label}
               isActive={activeTab === item.label.toLowerCase()}
             />
           </Link>
@@ -51,12 +51,11 @@ const Dashboard = (props) => {
       label: "Home",
       icon: "pi pi-fw pi-desktop",
     },
-
     {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -67,7 +66,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -78,7 +77,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -90,7 +89,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -101,7 +100,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -124,7 +123,7 @@ const Dashboard = (props) => {
         >
           <IconText
             icon={item.icon}
-            text={item.label.toLowerCase()}
+            text={item.label}
             isActive={activeTab === item.label.toLowerCase()}
           />
         </Link>
