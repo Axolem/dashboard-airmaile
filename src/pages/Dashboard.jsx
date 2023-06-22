@@ -142,7 +142,7 @@ const Dashboard = (props) => {
       <div className="flex flex-column w-2 flex-wrap border-right-1 border-200 h-screen fixed">
         <div className="text-center justify-content-center align-items-center flex">
           <Image
-            src="https://cdn-newg.sirv.com/airmailer/dash/logo.png"
+            src="https://airmailer.co.za/logo.svg"
             alt="babylon-layout"
             width="80"
             className="pt-4"
