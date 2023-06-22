@@ -8,7 +8,7 @@ import IconText from "../components/IconText";
 
 const Dashboard = (props) => {
   const [activeTab, setActiveTab] = useState(
-    window.location.pathname.split("/")[1]
+    window.location.pathname.split("/")[1] || "home"
   );
 
   const LinkItem = ({ link, icon }) => {
@@ -16,14 +16,18 @@ const Dashboard = (props) => {
       <Link
         to={`/${link.toLowerCase()}`}
         className={`p-menuitem-link my-3 ${
-          activeTab === link ? "bg-primary-50" : ""
+          activeTab.toLowerCase() === link.toLowerCase() ? "bg-primary-50" : ""
         }`}
         onClick={() => {
-          setActiveTab(link);
+          setActiveTab(link.toLowerCase());
         }}
         style={{ borderRadius: "30px" }}
       >
-        <IconText icon={icon} text={link} isActive={activeTab === link} />
+        <IconText
+          icon={icon}
+          text={link}
+          isActive={activeTab.toLowerCase() === link.toLowerCase()}
+        />
       </Link>
     );
   };
@@ -42,7 +46,7 @@ const Dashboard = (props) => {
           >
             <IconText
               icon={item.icon}
-              text={item.label.toLowerCase()}
+              text={item.label}
               isActive={activeTab === item.label.toLowerCase()}
             />
           </Link>
@@ -51,12 +55,11 @@ const Dashboard = (props) => {
       label: "Home",
       icon: "pi pi-fw pi-desktop",
     },
-
     {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -67,7 +70,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -78,7 +81,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -90,7 +93,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -101,7 +104,7 @@ const Dashboard = (props) => {
       template: (item) => (
         <LinkItem
           key={item.label.toLowerCase()}
-          link={item.label.toLowerCase()}
+          link={item.label}
           icon={item.icon}
         />
       ),
@@ -124,7 +127,7 @@ const Dashboard = (props) => {
         >
           <IconText
             icon={item.icon}
-            text={item.label.toLowerCase()}
+            text={item.label}
             isActive={activeTab === item.label.toLowerCase()}
           />
         </Link>
@@ -136,18 +139,18 @@ const Dashboard = (props) => {
 
   return (
     <div className="flex flex-row">
-      <div className="flex flex-column w-3 flex-wrap border-right-1 border-200 h-screen">
+      <div className="flex flex-column w-2 flex-wrap border-right-1 border-200 h-screen fixed">
         <div className="text-center justify-content-center align-items-center flex">
           <Image
             src="https://cdn-newg.sirv.com/airmailer/dash/logo.png"
             alt="babylon-layout"
-            width="60"
-            className="pt-3"
+            width="80"
+            className="pt-4"
           />
         </div>
-        <Menu model={items} className="w-full mt-3 px-4 border-none" />
+        <Menu model={items} className="w-full mt-1 px-4 border-none" />
       </div>
-      <div className="flex flex-column w-full min-h-screen">
+      <div className="flex flex-column w-full min-h-screen w-10 absolute right-0">
         {props.children}
       </div>
     </div>
