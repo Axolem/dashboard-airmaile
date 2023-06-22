@@ -16,6 +16,9 @@ import "primereact/resources/primereact.min.css";
 //css
 import "primeflex/primeflex.css";
 
+//custom css
+import "./assets/custom.css";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
