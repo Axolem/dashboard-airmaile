@@ -1,10 +1,13 @@
 import Dashboard from "../Dashboard";
 import Separator from "../../components/Separator";
 import DataField from "../../components/DataField";
+import CardHeader from "../../components/CardHeader";
+import ActivityCard from "../../components/ActivityCard";
 import DashContentWrapper from "../../components/DashContentWrapper";
 
 import { Chart } from "primereact/chart";
 import { ProgressBar } from "primereact/progressbar";
+import LatestCall from "../../components/RecentActivityCard";
 
 const Home = () => {
   return (
@@ -52,10 +55,7 @@ const Home = () => {
 
             {/* API calls */}
             <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
-              <div className="flex flex-row justify-content-between">
-                <h3 className="mt-0">API Calls in last 6 hours</h3>
-                <i className="pi pi-refresh" />
-              </div>
+              <CardHeader text="API Calls in last 6 hours" />
               <div style={{ minHeight: "250px" }}>
                 <Chart type="line" data={data} options={options} />
               </div>
@@ -64,10 +64,7 @@ const Home = () => {
             <div className="flex flex-row justify-content-center align-items-center w-full my-3">
               {/* Total usage */}
               <div className="my-shadow mr-3 flex flex-column bg-white py-3 px-4 w-full border-round h-23rem">
-                <div className="flex flex-row justify-content-between ">
-                  <h3 className="mt-0">All time usage</h3>
-                  <i className="pi pi-refresh" />
-                </div>
+                <CardHeader text="All time usage" />
                 <div>
                   <Chart
                     type="doughnut"
@@ -79,10 +76,7 @@ const Home = () => {
 
               {/* Avarages */}
               <div className="my-shadow ml-3 flex flex-column bg-white py-3 px-4 w-full border-round h-23rem">
-                <div className="flex flex-row justify-content-between ">
-                  <h3 className="mt-0">Daily Avarages</h3>
-                  <i className="pi pi-refresh" />
-                </div>
+                <CardHeader text="Daily avarages" />
                 <div className="">
                   <div>
                     <p className="mt-0">API calls:</p>
@@ -146,20 +140,33 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Activity */}
           <div className="ml-3 w-4 ">
+            {/* Massages */}
             <div className="my-shadow bg-white border-round py-3 px-4 mb-5">
-              <div className="flex flex-row justify-content-between ">
-                <h3 className="mt-0">Activity</h3>
-                <i className="pi pi-refresh" />
+              <CardHeader text="Massages" />
+              <div
+                className="flex flex-column overflow-scroll hide-scrollbar border-round"
+                style={{ height: "430px" }}
+              >
+                <ActivityCard
+                  name="System"
+                  key={1}
+                  time={"June 22nd 2023, 10:33"}
+                  massage={"This is a test massage nothing hectic"}
+                />
               </div>
-              <ActivityCard/>
             </div>
 
+            {/* Activity */}
             <div className="my-shadow bg-white border-round py-3 px-4 mt-5">
-              <div className="flex flex-row justify-content-between ">
-                <h3 className="mt-0">Activity</h3>
-                <i className="pi pi-refresh" />
+              <CardHeader text="Recent activity" />
+              <div
+                className="flex flex-column overflow-scroll hide-scrollbar"
+                style={{ height: "300px" }}
+              >
+                {latestCalls.map((call) => (
+                  <LatestCall data={call} />
+                ))}
               </div>
             </div>
           </div>
@@ -170,31 +177,6 @@ const Home = () => {
 };
 
 export default Home;
-
-const ActivityCard = () => {
-  return (
-    <div className="flex flex-row justify-content-between align-items-center">
-      <div className="flex flex-row align-items-center">
-        <div className="bg-blue-500 rounded-full h-8 w-8 flex flex-row justify-content-center align-items-center">
-          <i className="pi pi-user text-white" />
-        </div>
-        <div className="ml-3">
-          <p className="mb-0">User created</p>
-          <p className="text-sm mt-0">2 hours ago</p>
-        </div>
-      </div>
-      <div className="flex flex-row align-items-center">
-        <div className="bg-blue-500 rounded-full h-8 w-8 flex flex-row justify-content-center align-items-center">
-          <i className="pi pi-user text-white" />
-        </div>
-        <div className="ml-3">
-          <p className="mb-0">User created</p>
-          <p className="text-sm mt-0">2 hours ago</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // dummy data for chart component from PrimeReact
 const data = {
@@ -230,8 +212,6 @@ const options = {
       },
     ],
   },
-  maintainAspectRatio: true,
-  responsive: true,
 };
 
 // Donut chart data
@@ -258,3 +238,19 @@ const donutOptions = {
   responsive: true,
   cutout: "50%",
 };
+
+//Dumy data for lastest calls
+const latestCalls = [
+  { call: "/verify/code", status: 200, time: "June 22nd 2023, 10:31" },
+  { call: "/email/send", status: 404, time: "June 22nd 2023, 10:30" },
+  { call: "/verify/", status: 201, time: "June 22nd 2023, 10:28" },
+  { call: "/verify/code", status: 200, time: "June 22nd 2023, 10:31" },
+  { call: "/email/send", status: 404, time: "June 22nd 2023, 10:30" },
+  { call: "/verify/", status: 201, time: "June 22nd 2023, 10:28" },
+  { call: "/verify/code", status: 200, time: "June 22nd 2023, 10:31" },
+  { call: "/email/send", status: 404, time: "June 22nd 2023, 10:30" },
+  { call: "/verify/", status: 201, time: "June 22nd 2023, 10:28" },
+  { call: "/verify/code", status: 200, time: "June 22nd 2023, 10:31" },
+  { call: "/email/send", status: 404, time: "June 22nd 2023, 10:30" },
+  { call: "/verify/", status: 201, time: "June 22nd 2023, 10:28" },
+];
