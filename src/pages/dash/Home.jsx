@@ -3,11 +3,11 @@ import Separator from "../../components/Separator";
 import DataField from "../../components/DataField";
 import CardHeader from "../../components/CardHeader";
 import ActivityCard from "../../components/ActivityCard";
+import LatestCall from "../../components/RecentActivityCard";
 import DashContentWrapper from "../../components/DashContentWrapper";
 
 import { Chart } from "primereact/chart";
 import { ProgressBar } from "primereact/progressbar";
-import LatestCall from "../../components/RecentActivityCard";
 
 const Home = () => {
   return (
