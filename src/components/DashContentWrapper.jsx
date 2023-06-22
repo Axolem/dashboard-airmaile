@@ -9,15 +9,13 @@ const DashContentWrapper = (props) => {
       >
         <div>
           <h1 className="mb-1">{props.routeName}</h1>
-          <p className="text-gray-500 m-0">
-            {props.text}
-          </p>
+          <p className="text-gray-500 m-0">{props.text}</p>
         </div>
         <div className="flex">
           <i
             className="pi pi-fw pi-calendar mr-2"
             style={{ fontSize: "1.2rem" }}
-          />{" "}
+          />
           {moment().format("DD MMMM YYYY, HH:MM:ss")}
         </div>
       </div>
