@@ -1,4 +1,5 @@
 import moment from "moment/moment";
+import Link from "./Link";
 
 const DashContentWrapper = (props) => {
   return (
@@ -20,6 +21,61 @@ const DashContentWrapper = (props) => {
         </div>
       </div>
       {props.children}
+      <div
+        className="border-top-1 border-bluegray-200 mt-5 text-center mb-2"
+        role="footer"
+      >
+        <div className="flex justify-content-between mb-4 px-8">
+          <div>
+            <h4 className="text-gray-800">Help links</h4>
+            <div className="flex">
+              <Link
+                to="https://github.com/airmailer/airmailer-sdk"
+                icon="pi-github"
+                name="Github"
+              />
+              <Link
+                to="https://discord.gg/FYCFCT6Y"
+                icon="pi-discord"
+                name="Discord"
+              />
+              <Link
+                to="https://airmailer.co.za/pages/docs/"
+                icon="pi-book"
+                name="Docs"
+              />
+              <Link
+                to="https://github.com/airmailer/airmailer-doc"
+                icon="pi-box"
+                name="NPM"
+              />
+            </div>
+          </div>
+          <div>
+            <h4 className="text-gray-800">Links</h4>
+            <div className="flex">
+              <Link
+                to="https://airmailer.co.za/pages/docs/about/legals/"
+                icon="pi-key"
+                name="Legal"
+              />
+              <Link
+                to="https://airmailer.co.za"
+                icon="pi-globe"
+                name="Website"
+              />
+              <Link
+                to="https://airmailer.co.za/pages/docs/about/contact/"
+                icon="pi-ticket"
+                name="Contact us"
+              />{" "}
+            </div>
+          </div>
+        </div>
+        <p className="text-gray-500 m-0">
+          © {moment().year()} - All Rights Reserved
+        </p>
+      </div>
     </div>
   );
 };
