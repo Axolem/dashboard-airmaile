@@ -45,7 +45,7 @@ const ResetPassword = ({ token }) => {
   };
 
   return (
-    <div className="flex flex-column w-20rem mb-6 pl-3">
+    <div className="flex flex-column w-20rem mb-6">
       <div className=" pl-3">
         <Toast ref={toast} />
         <div className="mb-5">
