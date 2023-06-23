@@ -7,17 +7,25 @@ import {
   uniqueNamesGenerator,
 } from "unique-names-generator";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Chips } from "primereact/chips";
+import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
 
 const NewAppCard = ({ visible, setVisible }) => {
+  const toast = useRef(null);
+
+  const [load, setLoad] = useState(false);
   const [urls, seturls] = useState([]);
   const [randomName, setRandomName] = useState(null);
+  const [checked, setChecked] = useState({
+    logemails: false,
+    verify: false,
+  });
 
   const generatorName = () => {
     const customConfig = {
@@ -35,11 +43,48 @@ const NewAppCard = ({ visible, setVisible }) => {
 
   const handleForm = (e) => {
     e.preventDefault();
-    console.log(e.target);
+  };
+
+  const handleCreate = () => {
+    setLoad(true);
+    setTimeout(() => {
+      setLoad(false);
+      showSuccess("App created successfully");
+      setVisible(false);
+    }, 2000);
+
+  };
+
+  const showSuccess = (massage) => {
+    toast.current.show({
+      severity: "success",
+      summary: "Success",
+      detail: massage,
+      life: 3000,
+    });
+  };
+
+  const showWarn = (massage) => {
+    toast.current.show({
+      severity: "warn",
+      summary: "Warning",
+      detail: massage,
+      life: 3000,
+    });
+  };
+
+  const showError = (massage) => {
+    toast.current.show({
+      severity: "error",
+      summary: "Error",
+      detail: massage,
+      life: 3000,
+    });
   };
 
   return (
     <div>
+      <Toast ref={toast} />
       <Sidebar
         visible={visible}
         baseZIndex={1_000_000}
@@ -104,8 +149,36 @@ const NewAppCard = ({ visible, setVisible }) => {
 
               {/*Settings */}
               <div>
-                
+                <div className="flex flex-column gap-2 mt-5 w-full">
+                  <label htmlFor="acceptedUrls">Log emails:</label>
+                  <InputSwitch
+                    className="p-inputswitch-sm ml-5 "
+                    checked={checked.logemails}
+                    onChange={(e) =>
+                      setChecked((prev) => ({ ...prev, logemails: e.value }))
+                    }
+                  />
+                </div>
+                <div className="flex flex-column gap-2 mt-5 w-full">
+                  <label htmlFor="acceptedUrls">Validate emails:</label>
+                  <InputSwitch
+                    className="p-inputswitch-sm ml-5 "
+                    checked={checked.verify}
+                    onChange={(e) =>
+                      setChecked((prev) => ({ ...prev, verify: e.value }))
+                    }
+                  />
+                </div>
               </div>
+              <Button
+                label="Generate"
+                className="mt-6 ml-2 w-3"
+                size="small"
+                role="button"
+                value="submit"
+                loading={load}
+                onClick={handleCreate}
+              />
             </div>
           </form>
         </div>
