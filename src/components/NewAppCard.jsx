@@ -174,7 +174,6 @@ const NewAppCard = ({ visible, setVisible }) => {
                 label="Generate"
                 className="mt-6 ml-2 w-3"
                 size="small"
-                role="button"
                 value="submit"
                 loading={load}
                 onClick={handleCreate}
