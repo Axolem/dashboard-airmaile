@@ -5,7 +5,6 @@ const DashContentWrapper = ({routeName, children, text}) => {
   return (
     <div className="min-h-full px-5" style={{ background: "#F5F5F7" }}>
       <div
-        role="header"
         className="flex justify-content-between align-items-center align-content-center mb-5"
       >
         <div>
@@ -23,7 +22,6 @@ const DashContentWrapper = ({routeName, children, text}) => {
       {children}
       <div
         className="border-top-1 border-bluegray-200 mt-5 text-center mb-2"
-        role="footer"
       >
         <div className="flex justify-content-between mb-4 px-8">
           <div>
