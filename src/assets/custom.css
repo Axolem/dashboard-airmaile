@@ -40,3 +40,25 @@
         display: none;
     }
 }
+
+.new-app-card:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+}
+
+.new-app-card i:hover {
+    transform: rotate(60deg);
+    transition: 0.5s;
+}
+
+i {
+    transition: 0.5s;
+}
+
+.p-password-input{
+    padding: 8px;
+}
+.p-password{
+    padding: 0;
+    margin-top: 4px;
+}

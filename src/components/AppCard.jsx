@@ -1,0 +1,57 @@
+import { Avatar } from "primereact/avatar";
+import { Button } from "primereact/button";
+import { ProgressBar } from "primereact/progressbar";
+
+import pickRandomItem from "../helpers/random";
+import { useNavigate } from "react-router";
+
+const AppCard = ({ name = "", id = "non_existance" }) => {
+  const navigate = useNavigate();
+
+  const colorsArr = ["#1F9DE7", "#F9A52B", "#9e0e86", "#57a801", "#5700a1"];
+  const color = pickRandomItem(colorsArr);
+  return (
+    <div className="my-shadow bg-white border-round py-3 px-4 m-5  w-18rem h-16rem col-6">
+      <div className="flex flex-column align-items-center justify-content-center">
+        <Avatar
+          label={name.charAt(0).toUpperCase()}
+          size="xlarge"
+          style={{ backgroundColor: color }}
+          className="text-white"
+        />
+
+        <div className="text-center mt-3">
+          <h3 className="m-0">{name}</h3>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-muted">
+          Plan: <span>Basic</span>
+        </p>
+        <p className="text-muted">
+          Usage: <span>20/5000</span>
+        </p>
+      </div>
+      <div className="flex justify-content-between align-items-center">
+        <ProgressBar
+          value={20}
+          showValue={true}
+          className="h-1rem w-8 mr-1 border-round text-center text-xs"
+        />
+        <Button
+          label="Manage"
+          text
+          className="p-button-rounded ml-1"
+          link
+          size="small"
+          onClick={() => {
+            navigate(id.toString());
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default AppCard;
