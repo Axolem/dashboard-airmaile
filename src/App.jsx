@@ -15,7 +15,7 @@ function App() {
       <Route path="/templates" element={<Templates />} />
       <Route path="/history" element={<Templates />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/invite" element={<Templates />} />
+      <Route path="/invite" element={<Invite />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
