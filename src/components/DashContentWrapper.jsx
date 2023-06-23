@@ -1,7 +1,7 @@
 import moment from "moment/moment";
 import Link from "./Link";
 
-const DashContentWrapper = (props) => {
+const DashContentWrapper = ({routeName, children, text}) => {
   return (
     <div className="min-h-full px-5" style={{ background: "#F5F5F7" }}>
       <div
@@ -9,8 +9,8 @@ const DashContentWrapper = (props) => {
         className="flex justify-content-between align-items-center align-content-center mb-5"
       >
         <div>
-          <h1 className="mb-1">{props.routeName}</h1>
-          <p className="text-gray-500 m-0">{props.text}</p>
+          <h1 className="mb-1">{routeName}</h1>
+          <p className="text-gray-500 m-0">{text}</p>
         </div>
         <div className="flex">
           <i
@@ -20,7 +20,7 @@ const DashContentWrapper = (props) => {
           {moment().format("DD MMMM YYYY, HH:MM:ss")}
         </div>
       </div>
-      {props.children}
+      {children}
       <div
         className="border-top-1 border-bluegray-200 mt-5 text-center mb-2"
         role="footer"

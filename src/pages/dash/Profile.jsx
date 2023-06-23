@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import Dashboard from "../Dashboard";
 import CardHeader from "../../components/CardHeader";
+import ResetPassword from "../../components/ResetPassword";
+import Notifications from "../../components/Notifications";
 import DashContentWrapper from "../../components/DashContentWrapper";
 
 import { Toast } from "primereact/toast";
@@ -9,10 +11,17 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-import ResetPassword from "../../components/ResetPassword";
+import VerifyPhone from "../../components/VerifyPhone";
 
 const Profile = () => {
   const toast = useRef(null);
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [changed, setChanged] = useState(true);
 
   const accept = () => {
     toast.current.show({
@@ -34,6 +43,73 @@ const Profile = () => {
     });
   };
 
+  const updateContactEmail = () => {
+    setLoading(true);
+    if (email === "") {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Please enter your email.",
+        life: 3000,
+      });
+      setLoading(false);
+      return;
+    }
+    setTimeout(() => {
+      setLoading(false);
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Contact email updated successfully.",
+        life: 3000,
+      });
+    }, 3000);
+  };
+
+  const updatePersonalDetails = () => {
+    setLoading(true);
+
+    if (name === "" || phone === "") {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Please enter your name and phone number.",
+        life: 3000,
+      });
+      setLoading(false);
+      return;
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Personal details updated successfully.",
+        life: 3000,
+      });
+    }, 3000);
+  };
+
+  const verifyPhone = (phone) => {
+    setLoading(true);
+    if (phone === "") {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Please enter your phone number.",
+        life: 3000,
+      });
+      setLoading(false);
+      return;
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(true);
+    }, 3000);
+  };
+
   return (
     <Dashboard>
       <DashContentWrapper
@@ -42,19 +118,140 @@ const Profile = () => {
       >
         <Toast ref={toast} />
 
-        {/* Profile */}
+        {/* ----------------------- Profile -------------------------------- */}
         <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
           <CardHeader text="Personal Details" hide />
-          <div></div>
+          <div className="w-20rem">
+            <div className="p-fluid">
+              <div className="p-field">
+                <label htmlFor="name">Name:</label>
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon p-2">
+                    <i className="pi pi-user " />
+                  </span>
+                  <InputText
+                    id="name"
+                    type="text"
+                    size="small"
+                    className="p-inputtext-sm p-1"
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-fluid mt-3">
+              <div className="p-field">
+                <label htmlFor="email-user">Email:</label>
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon p-2">
+                    <i className="pi pi-at" />
+                  </span>
+                  <InputText
+                    id="email-user"
+                    type="email"
+                    size="small"
+                    className="p-inputtext-sm p-2"
+                    placeholder="Email"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-fluid mt-3">
+              <VerifyPhone
+                visible={visible}
+                setVisible={setVisible}
+                phone={phone}
+                verifyPhone={verifyPhone}
+              />
+              <div className="p-field ">
+                <label htmlFor="phone">Phone:</label>
+                <div className="p-inputgroup flex-1">
+                  <span className="p-inputgroup-addon p-2">
+                    <i className="pi pi-phone " />
+                  </span>
+                  <InputText
+                    id="phone"
+                    type="text"
+                    size="small"
+                    className="p-inputtext-sm p-2"
+                    placeholder="+27 125 9895"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      if ((e.target.value).trim().length > 7) {
+                        setChanged(false);
+                      } else {
+                        setChanged(true);
+                      }
+                    }}
+                  />
+                  <Button
+                    loading={loading}
+                    label="Verify"
+                    className="mt-0"
+                    icon="pi pi-check"
+                    size="small"
+                    severity="info"
+                    disabled={changed}
+                    onClick={() => verifyPhone(phone)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <Button
+                loading={loading}
+                label="Update"
+                className="mt-5  mb-2"
+                icon="pi pi-check"
+                size="small"
+                onClick={updatePersonalDetails}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Contact */}
+        {/* ------------------------- Contact ------------------------------ */}
         <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
           <CardHeader text="Contact Details" hide />
-          <div></div>
+          <div className="w-20rem">
+            <h5 className="text-600 mb-3 mt-0 ">Notifications Email:</h5>
+
+            <div className="p-fluid pl-3">
+              <div className="p-field">
+                <label htmlFor="email">Email:</label>
+                <InputText
+                  id="email"
+                  type="email"
+                  size="small"
+                  className="p-inputtext-sm p-2 mt-2"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <h5 className="text-600 mb-3">Notifications:</h5>
+            <Notifications />
+
+            <div className="mb-2">
+              <Button
+                loading={loading}
+                label="Update"
+                className="mt-5"
+                icon="pi pi-check"
+                size="small"
+                onClick={updateContactEmail}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Security */}
+        {/* --------------------------- Security ----------------------------*/}
         <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
           <CardHeader text="Security Details" hide />
           {/*  Password Reset */}
@@ -67,7 +264,13 @@ const Profile = () => {
           <div className="my-3 border-bottom-1 border-400 pb-3">
             <Inplace>
               <InplaceDisplay>
-                <Button label="Enable 2FA" size="small" severity="info" />{" "}
+                <Button
+                  loading={loading}
+                  label="Enable 2FA"
+                  size="small"
+                  severity="info"
+                  icon="pi pi-shield"
+                />{" "}
               </InplaceDisplay>
               <InplaceContent>
                 <h5 className="text-700">Manage 2FA</h5>
@@ -82,7 +285,13 @@ const Profile = () => {
           <div className="my-3">
             <Inplace>
               <InplaceDisplay>
-                <Button label="Delete Account" size="small" severity="danger" />
+                <Button
+                  loading={loading}
+                  label="Delete Account"
+                  size="small"
+                  severity="danger"
+                  icon="pi pi-trash"
+                />
               </InplaceDisplay>
               <InplaceContent>
                 <h5 className="text-700">Delete Account</h5>
@@ -135,8 +344,9 @@ const Profile = () => {
                       </ul>
                     </div>
                     <Button
+                      loading={loading}
                       onClick={confirm}
-                      icon="pi pi-times"
+                      icon="pi pi pi-times"
                       label="Delete my account"
                       severity="danger"
                     />
