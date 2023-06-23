@@ -6,7 +6,7 @@ import Dashboard from "../Dashboard";
 import NewAppCard from "../../components/NewAppCard";
 
 const Apps = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   return (
     <Dashboard>
       <DashContentWrapper
