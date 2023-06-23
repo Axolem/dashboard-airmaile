@@ -84,10 +84,11 @@ const ResetPassword = ({ token }) => {
       </div>
       <div>
         <Button
-          label="Update"
           size="small"
-          onClick={handleReset}
+          label="Update"
           loading={loading}
+          icon="pi pi-check"
+          onClick={handleReset}
         />
       </div>
     </div>
