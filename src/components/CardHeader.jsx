@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Tag } from "primereact/tag";
 
-const CardHeader = ({ text, refeshHandeler, coming }) => {
+const CardHeader = ({ text, refeshHandeler, coming, hide }) => {
   const [refesh, setRefesh] = useState();
 
   //make a refesh handeler function to run 3 seconds
@@ -19,12 +19,14 @@ const CardHeader = ({ text, refeshHandeler, coming }) => {
 
   return (
     <div className="flex flex-row justify-content-between ">
-      <h3 className="mt-0">
+      <h3 className="mt-0 text-gray-900">
         {text} {coming && <Tag severity="info" value={coming} rounded />}
       </h3>
-      <div onClick={clickHandeler} className="cursor-pointer hovered-refresh">
-        <i className={`pi pi-refresh ${refesh}`} />
-      </div>
+      {hide ? null : (
+        <div onClick={clickHandeler} className="cursor-pointer hovered-refresh">
+          <i className={`pi pi-refresh ${refesh}`} />
+        </div>
+      )}
     </div>
   );
 };
