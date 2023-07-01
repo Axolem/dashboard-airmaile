@@ -164,8 +164,8 @@ const Home = () => {
                 className="flex flex-column overflow-scroll hide-scrollbar"
                 style={{ height: "300px" }}
               >
-                {latestCalls.map((call) => (
-                  <LatestCall data={call} />
+                {latestCalls.map((call, i) => (
+                  <LatestCall key={i} data={call} />
                 ))}
               </div>
             </div>
@@ -203,14 +203,14 @@ const data = {
 
 const options = {
   scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          stepSize: 5,
-        },
-      },
-    ],
+    // yAxes: [
+    //   {
+    //     ticks: {
+    //       beginAtZero: true,
+    //       stepSize: 5,
+    //     },
+    //   },
+    // ],
   },
 };
 
