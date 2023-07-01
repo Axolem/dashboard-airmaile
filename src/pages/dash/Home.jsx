@@ -203,14 +203,14 @@ const data = {
 
 const options = {
   scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          stepSize: 5,
-        },
-      },
-    ],
+    // yAxes: [
+    //   {
+    //     ticks: {
+    //       beginAtZero: true,
+    //       stepSize: 5,
+    //     },
+    //   },
+    // ],
   },
 };
 
