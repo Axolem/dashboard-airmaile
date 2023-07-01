@@ -11,17 +11,20 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-import VerifyPhone from "../../components/VerifyPhone";
+//import VerifyPhone from "../../components/VerifyPhone";
+
+import { UserProfile, useUser } from "@clerk/clerk-react";
 
 const Profile = () => {
   const toast = useRef(null);
+  const { user } = useUser();
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(user.primaryEmailAddress.emailAddress);
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [changed, setChanged] = useState(true);
+  // const [visible, setVisible] = useState(false);
+  // const [changed, setChanged] = useState(true);
 
   const accept = () => {
     toast.current.show({
@@ -66,49 +69,49 @@ const Profile = () => {
     }, 3000);
   };
 
-  const updatePersonalDetails = () => {
-    setLoading(true);
+  // const updatePersonalDetails = () => {
+  //   setLoading(true);
 
-    if (name === "" || phone === "") {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Please enter your name and phone number.",
-        life: 3000,
-      });
-      setLoading(false);
-      return;
-    }
+  //   if (name === "" || phone === "") {
+  //     toast.current.show({
+  //       severity: "error",
+  //       summary: "Error",
+  //       detail: "Please enter your name and phone number.",
+  //       life: 3000,
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
 
-    setTimeout(() => {
-      setLoading(false);
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "Personal details updated successfully.",
-        life: 3000,
-      });
-    }, 3000);
-  };
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     toast.current.show({
+  //       severity: "success",
+  //       summary: "Success",
+  //       detail: "Personal details updated successfully.",
+  //       life: 3000,
+  //     });
+  //   }, 3000);
+  // };
 
-  const verifyPhone = (phone) => {
-    setLoading(true);
-    if (phone === "") {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Please enter your phone number.",
-        life: 3000,
-      });
-      setLoading(false);
-      return;
-    }
+  // const verifyPhone = (phone) => {
+  //   setLoading(true);
+  //   if (phone === "") {
+  //     toast.current.show({
+  //       severity: "error",
+  //       summary: "Error",
+  //       detail: "Please enter your phone number.",
+  //       life: 3000,
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
 
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(true);
-    }, 3000);
-  };
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setVisible(true);
+  //   }, 3000);
+  // };
 
   return (
     <Dashboard>
@@ -119,8 +122,9 @@ const Profile = () => {
         <Toast ref={toast} />
 
         {/* ----------------------- Profile -------------------------------- */}
-        <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
-          <CardHeader text="Personal Details" hide />
+        <div className=" w-full pb-3 px-0 my-3">
+          <UserProfile />
+          {/* <CardHeader text="Personal Details" hide />
           <div className="w-20rem">
             <div className="p-fluid">
               <div className="p-field">
@@ -211,7 +215,7 @@ const Profile = () => {
                 onClick={updatePersonalDetails}
               />
             </div>
-          </div>
+          </div>*/}
         </div>
 
         {/* ------------------------- Contact ------------------------------ */}
@@ -252,110 +256,113 @@ const Profile = () => {
         </div>
 
         {/* --------------------------- Security ----------------------------*/}
-        <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
-          <CardHeader text="Security Details" hide />
-          {/*  Password Reset */}
-          <div className="my-3 border-bottom-1 border-400 pb-3">
-            <h5 className="text-700 mt-0">Update password</h5>
-            <ResetPassword token={"df4d564ger45y445"} />
-          </div>
 
-          {/*  Manage 2FA */}
-          <div className="my-3 border-bottom-1 border-400 pb-3">
-            <Inplace>
-              <InplaceDisplay>
-                <Button
-                  loading={loading}
-                  label="Enable 2FA"
-                  size="small"
-                  severity="info"
-                  icon="pi pi-shield"
-                />{" "}
-              </InplaceDisplay>
-              <InplaceContent>
-                <h5 className="text-700">Manage 2FA</h5>
-                <div className="pl-3 pb-5">
-                  <CardHeader text="" hide coming={"Comming soon"} />
-                </div>
-              </InplaceContent>
-            </Inplace>
-          </div>
+        {false && (
+          <div className="my-shadow bg-white w-full py-3 px-4 my-3 border-round">
+            <CardHeader text="Security Details" hide />
+            {/*  Password Reset */}
+            <div className="my-3 border-bottom-1 border-400 pb-3">
+              <h5 className="text-700 mt-0">Update password</h5>
+              <ResetPassword token={"df4d564ger45y445"} />
+            </div>
 
-          {/* Delete account */}
-          <div className="my-3">
-            <Inplace>
-              <InplaceDisplay>
-                <Button
-                  loading={loading}
-                  label="Delete Account"
-                  size="small"
-                  severity="danger"
-                  icon="pi pi-trash"
-                />
-              </InplaceDisplay>
-              <InplaceContent>
-                <h5 className="text-700">Delete Account</h5>
-                <div className="pl-3  pb-5">
-                  <div>
-                    <ConfirmDialog />
-                    <div className="text-gray-600">
-                      <p>Having issues with:</p>
-                      <ul>
-                        <li>Integration (SDK)</li>
-                        <li>API</li>
-                        <li>Billing</li>
-                        <li>Customisation</li>
-                      </ul>
-                      <p>
-                        Feel free to contact us at{" "}
-                        <a
-                          href="https://airmailer.co.za/pages/docs/about/contact/"
-                          className="text-blue-500"
-                          target="_blank"
-                        >
-                          @help
-                        </a>
-                      </p>
-                      <p className="pt-3">
-                        Before you delete your account, please note:
-                      </p>
-
-                      <ul>
-                        <li>
-                          Deleting your account is permanent. You will not be
-                          able to recover your account or any of the content or
-                          information you have added.
-                        </li>
-                        <li>
-                          We delay deletion a few days after it's requested. A
-                          deletion request is cancelled if you log back into
-                          your account during this time.
-                        </li>
-                        <li>
-                          It may take up to 90 days to delete data stored in
-                          backup systems. Your information isn't accessible on
-                          during this time.
-                        </li>
-                        <li>
-                          Copies of some material (example: log records) may
-                          remain in our database but are disassociated from
-                          personal identifiers.
-                        </li>
-                      </ul>
-                    </div>
-                    <Button
-                      loading={loading}
-                      onClick={confirm}
-                      icon="pi pi pi-times"
-                      label="Delete my account"
-                      severity="danger"
-                    />
+            {/*  Manage 2FA */}
+            <div className="my-3 border-bottom-1 border-400 pb-3">
+              <Inplace>
+                <InplaceDisplay>
+                  <Button
+                    loading={loading}
+                    label="Enable 2FA"
+                    size="small"
+                    severity="info"
+                    icon="pi pi-shield"
+                  />{" "}
+                </InplaceDisplay>
+                <InplaceContent>
+                  <h5 className="text-700">Manage 2FA</h5>
+                  <div className="pl-3 pb-5">
+                    <CardHeader text="" hide coming={"Comming soon"} />
                   </div>
-                </div>
-              </InplaceContent>
-            </Inplace>
+                </InplaceContent>
+              </Inplace>
+            </div>
+
+            {/* Delete account */}
+            <div className="my-3">
+              <Inplace>
+                <InplaceDisplay>
+                  <Button
+                    loading={loading}
+                    label="Delete Account"
+                    size="small"
+                    severity="danger"
+                    icon="pi pi-trash"
+                  />
+                </InplaceDisplay>
+                <InplaceContent>
+                  <h5 className="text-700">Delete Account</h5>
+                  <div className="pl-3  pb-5">
+                    <div>
+                      <ConfirmDialog />
+                      <div className="text-gray-600">
+                        <p>Having issues with:</p>
+                        <ul>
+                          <li>Integration (SDK)</li>
+                          <li>API</li>
+                          <li>Billing</li>
+                          <li>Customisation</li>
+                        </ul>
+                        <p>
+                          Feel free to contact us at{" "}
+                          <a
+                            href="https://airmailer.co.za/pages/docs/about/contact/"
+                            className="text-blue-500"
+                            target="_blank"
+                          >
+                            @help
+                          </a>
+                        </p>
+                        <p className="pt-3">
+                          Before you delete your account, please note:
+                        </p>
+
+                        <ul>
+                          <li>
+                            Deleting your account is permanent. You will not be
+                            able to recover your account or any of the content
+                            or information you have added.
+                          </li>
+                          <li>
+                            We delay deletion a few days after it's requested. A
+                            deletion request is cancelled if you log back into
+                            your account during this time.
+                          </li>
+                          <li>
+                            It may take up to 90 days to delete data stored in
+                            backup systems. Your information isn't accessible on
+                            during this time.
+                          </li>
+                          <li>
+                            Copies of some material (example: log records) may
+                            remain in our database but are disassociated from
+                            personal identifiers.
+                          </li>
+                        </ul>
+                      </div>
+                      <Button
+                        loading={loading}
+                        onClick={confirm}
+                        icon="pi pi pi-times"
+                        label="Delete my account"
+                        severity="danger"
+                      />
+                    </div>
+                  </div>
+                </InplaceContent>
+              </Inplace>
+            </div>
           </div>
-        </div>
+        )}
       </DashContentWrapper>
     </Dashboard>
   );

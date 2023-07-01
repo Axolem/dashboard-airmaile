@@ -6,6 +6,8 @@ import { Image } from "primereact/image";
 
 import IconText from "../components/IconText";
 
+import { SignOutButton } from "@clerk/clerk-react";
+
 const Dashboard = (props) => {
   const [activeTab, setActiveTab] = useState(
     window.location.pathname.split("/")[1] || "home"
@@ -113,24 +115,20 @@ const Dashboard = (props) => {
     },
     {
       template: (item) => (
-        <Link
-          to={"/"}
-          className={`p-menuitem-link my-3 ${
-            activeTab === item.label.toLowerCase() ? "bg-primary-50" : ""
-          }`}
-          onClick={() => {
-            //doLogout();
-            setActiveTab(item.label.toLowerCase());
-            console.log("Logged out");
-          }}
-          style={{ borderRadius: "30px" }}
-        >
-          <IconText
-            icon={item.icon}
-            text={item.label}
-            isActive={activeTab === item.label.toLowerCase()}
-          />
-        </Link>
+        <SignOutButton>
+          <div
+            className={`p-menuitem-link my-3 ${
+              activeTab === item.label.toLowerCase() ? "bg-primary-50" : ""
+            }`}
+            style={{ borderRadius: "30px" }}
+          >
+            <IconText
+              icon={item.icon}
+              text={item.label}
+              isActive={activeTab === item.label.toLowerCase()}
+            />
+          </div>
+        </SignOutButton>
       ),
       label: "Logout",
       icon: "pi pi-fw pi-sign-out",
