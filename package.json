@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^4.21.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "moment": "^2.29.4",
