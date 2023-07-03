@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
 
+import isEmail from "validator/lib/isEmail";
+
 import Dashboard from "../Dashboard";
 import CardHeader from "../../components/CardHeader";
+//import VerifyPhone from "../../components/VerifyPhone";
 import ResetPassword from "../../components/ResetPassword";
 import Notifications from "../../components/Notifications";
 import DashContentWrapper from "../../components/DashContentWrapper";
@@ -11,18 +14,23 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-//import VerifyPhone from "../../components/VerifyPhone";
 
+import { useDispatch, useSelector } from "react-redux";
 import { UserProfile, useUser } from "@clerk/clerk-react";
+import { updateProfile } from "../../state/actions/profile";
+
 
 const Profile = () => {
   const toast = useRef(null);
   const { user } = useUser();
+  const dispatch = useDispatch();
+
+  const { profile } = useSelector((state) => state);
 
   // const [name, setName] = useState("");
   // const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState(user.primaryEmailAddress.emailAddress);
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(user.primaryEmailAddress.emailAddress);
   // const [visible, setVisible] = useState(false);
   // const [changed, setChanged] = useState(true);
 
@@ -48,16 +56,18 @@ const Profile = () => {
 
   const updateContactEmail = () => {
     setLoading(true);
-    if (email === "") {
+    if (!isEmail(email)) {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Please enter your email.",
+        detail: "Please enter valid email.",
         life: 3000,
       });
       setLoading(false);
       return;
     }
+
+    dispatch(updateProfile("UPDATE_EMAIL", email));
     setTimeout(() => {
       setLoading(false);
       toast.current.show({
@@ -233,7 +243,7 @@ const Profile = () => {
                   size="small"
                   className="p-inputtext-sm p-2 mt-2"
                   placeholder="Email"
-                  value={email}
+                  value={profile.email || email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -318,6 +328,7 @@ const Profile = () => {
                             href="https://airmailer.co.za/pages/docs/about/contact/"
                             className="text-blue-500"
                             target="_blank"
+                            rel="noreferrer"
                           >
                             @help
                           </a>
