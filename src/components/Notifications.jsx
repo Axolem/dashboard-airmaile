@@ -14,7 +14,6 @@ const Notifications = () => {
 
   const onInputChange = (e, name) => {
     setLoading(true);
-    console.log(e.value, name);
     setTimeout(() => {
       setLoading(false);
       sucess(name, "Success");
