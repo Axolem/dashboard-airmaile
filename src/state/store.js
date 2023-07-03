@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import appsReducer from './reducers/apps';
+import profileReducer from './reducers/profile';
+
 const store = configureStore({
     reducer: {
-        todos: todosReducer,
+        apps: appsReducer,
+        profile: profileReducer
     },
 });
 
