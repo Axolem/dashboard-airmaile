@@ -1,31 +1,42 @@
 import { useState, useRef } from "react";
-
 import { Toast } from "primereact/toast";
+import { useUser } from "@clerk/clerk-react";
 import { InputSwitch } from "primereact/inputswitch";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../state/actions/profile";
 
 const Notifications = () => {
   const toast = useRef(null);
+  const { user } = useUser();
+  const dispatch = useDispatch();
 
-  const [checked1, setChecked1] = useState(false);
-  const [checked2, setChecked2] = useState(true);
-  const [checked3, setChecked3] = useState(false);
-  const [checked4, setChecked4] = useState(false);
+  const { profile } = useSelector((state) => state);
+
   const [loading, setLoading] = useState(false);
+  const [checked3, setChecked3] = useState(profile?.status);
+  const [checked4, setChecked4] = useState(profile?.marketing);
+  const [checked2, setChecked2] = useState(profile?.newsletter);
+  const [checked1, setChecked1] = useState(profile?.usageEmails);
 
   const onInputChange = (e, name) => {
     setLoading(true);
-    console.log(e.value, name);
+
+    const id = user.id;
+    //do fetch here
+
+    dispatch(updateProfile(name, e));
+
     setTimeout(() => {
       setLoading(false);
       sucess(name, "Success");
-    }, 1000);
+    }, 500);
   };
 
-  const sucess = (name, state) => {
+  const sucess = (name = "", state) => {
     toast.current.show({
       severity: state.toLowerCase(),
       summary: state,
-      detail: `${name} notifications updated successfully.`,
+      detail: `${name.split("_")[1]} notifications updated successfully.`,
       life: 3000,
     });
   };
@@ -48,7 +59,7 @@ const Notifications = () => {
                 checked={checked1}
                 onChange={(e) => {
                   setChecked1(e.value);
-                  onInputChange(e, "usage");
+                  onInputChange(e.value, "UPDATE_USAGE");
                 }}
                 disabled={loading}
               />
@@ -69,7 +80,7 @@ const Notifications = () => {
                 checked={checked2}
                 onChange={(e) => {
                   setChecked2(e.value);
-                  onInputChange(e, "newsletter");
+                  onInputChange(e.value, "UPDATE_NEWSLETTER");
                 }}
                 disabled={loading}
               />
@@ -90,7 +101,7 @@ const Notifications = () => {
                 checked={checked3}
                 onChange={(e) => {
                   setChecked3(e.value);
-                  onInputChange(e, "status");
+                  onInputChange(e.value, "UPDATE_STATUS");
                 }}
                 disabled={loading}
               />
@@ -111,7 +122,7 @@ const Notifications = () => {
                 checked={checked4}
                 onChange={(e) => {
                   setChecked4(e.value);
-                  onInputChange(e, "marketing");
+                  onInputChange(e.value, "UPDATE_MARKETING");
                 }}
                 disabled={loading}
               />

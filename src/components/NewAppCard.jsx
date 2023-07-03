@@ -7,6 +7,8 @@ import {
   uniqueNamesGenerator,
 } from "unique-names-generator";
 
+import { useDispatch } from "react-redux";
+import { checkPropTypes } from "prop-types";
 import { useEffect, useRef, useState } from "react";
 
 import { Chips } from "primereact/chips";
@@ -16,8 +18,11 @@ import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
 
+import { addApp } from "../state/actions/app";
+
 const NewAppCard = ({ visible, setVisible }) => {
   const toast = useRef(null);
+  const dispatch = useDispatch();
 
   const [load, setLoad] = useState(false);
   const [urls, seturls] = useState([]);
@@ -47,6 +52,7 @@ const NewAppCard = ({ visible, setVisible }) => {
 
   const handleCreate = () => {
     setLoad(true);
+    dispatch(addApp({ name: randomName, urls, settings: checked }))
     setTimeout(() => {
       setLoad(false);
       showSuccess("App created successfully");
@@ -64,23 +70,23 @@ const NewAppCard = ({ visible, setVisible }) => {
     });
   };
 
-  const showWarn = (massage) => {
-    toast.current.show({
-      severity: "warn",
-      summary: "Warning",
-      detail: massage,
-      life: 3000,
-    });
-  };
+  // const showWarn = (massage) => {
+  //   toast.current.show({
+  //     severity: "warn",
+  //     summary: "Warning",
+  //     detail: massage,
+  //     life: 3000,
+  //   });
+  // };
 
-  const showError = (massage) => {
-    toast.current.show({
-      severity: "error",
-      summary: "Error",
-      detail: massage,
-      life: 3000,
-    });
-  };
+  // const showError = (massage) => {
+  //   toast.current.show({
+  //     severity: "error",
+  //     summary: "Error",
+  //     detail: massage,
+  //     life: 3000,
+  //   });
+  // };
 
   return (
     <div>
@@ -171,7 +177,7 @@ const NewAppCard = ({ visible, setVisible }) => {
                 </div>
               </div>
               <Button
-                label="Generate"
+                label="Create App"
                 className="mt-6 ml-2 w-3"
                 size="small"
                 value="submit"
@@ -185,5 +191,10 @@ const NewAppCard = ({ visible, setVisible }) => {
     </div>
   );
 };
+
+NewAppCard.propTypes = {
+  visible: checkPropTypes("bool", [true, false]),
+  setVisible: checkPropTypes("func")
+}
 
 export default NewAppCard;

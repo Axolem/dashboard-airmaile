@@ -1,12 +1,16 @@
 import { useState } from "react";
-import AppCard from "../../components/AppCard";
-import DashContentWrapper from "../../components/DashContentWrapper";
+import { useSelector } from "react-redux";
 
 import Dashboard from "../Dashboard";
+import AppCard from "../../components/AppCard";
 import NewAppCard from "../../components/NewAppCard";
+import DashContentWrapper from "../../components/DashContentWrapper";
 
 const Apps = () => {
   const [visible, setVisible] = useState(false);
+
+  const { apps } = useSelector((state) => state);
+
   return (
     <Dashboard>
       <DashContentWrapper
@@ -27,12 +31,15 @@ const Apps = () => {
             </div>
           </div>
 
-          <AppCard
-            icon={"pi pi-user"}
-            description={"Manage users and roles"}
-            id={1}
-            name={"App 1"}
-          />
+          {apps.map((app) => (
+            <AppCard
+              key={app.id}
+              icon={"pi pi-user"}
+              data={app}
+              id={app.id}
+              name={app.name}
+            />
+          ))}
         </div>
       </DashContentWrapper>
     </Dashboard>
